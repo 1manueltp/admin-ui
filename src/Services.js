@@ -1,0 +1,40 @@
+const city = "Jakarta";
+const street = "Jl. Asia Amerika";
+
+export const getUsers = async () => {
+    try {
+        const response = await fetch("https://jsonplaceholder.typicode.com/users");
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const users = await response.json();
+        return users.map((user) => ({
+            name: user.name,
+            email: user.email,
+            city,
+            street,
+        }));
+    } catch (error) {
+        console.error("[Services] Gagal mengambil data user:", error.message);
+        throw error;
+    }
+};
+
+export const getPosts = async () => {
+    try {
+        const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const posts = await response.json();
+        return posts.map((post) => ({
+            id: post.id,
+            title: post.title,
+            body: post.body,
+        }));
+    } catch (error) {
+        console.error("[Services] Gagal mengambil data post:", error.message);
+        throw error;
+    }
+};
+
